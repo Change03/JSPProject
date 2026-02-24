@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>test2</title>
+</head>
+
+<body>
+    <form action="#" method="GET" enctype="application/x-www-form-urlencoded">
+        <h2>2. 이력서 입력 폼 태그 만들기</h2>
+
+  <table border="1">
+    <tr>
+        <td rowspan="3" width="120" align="center">
+            <img src="images/다운로드 (3).jfif" alt="이력서 사진" width="177" height="284"><br>
+        </td>
+        <th rowspan="2" bgcolor="#f2f2f2">이름</th>
+        <td rowspan="2"><textarea rows="4" cols="10"></textarea></td>
+        
+        <th bgcolor="#f2f2f2">생년월일</th>
+        <td><input type="date" name="bith-date"></td>
+    </tr>
+
+    <tr>
+        <th bgcolor="#f2f2f2">휴대폰</th>
+        <td><textarea rows="1" cols="15"></textarea></td>
+    </tr>
+
+    <tr>
+        <th bgcolor="#f2f2f2">현주소</th>
+        <td><textarea rows="1" cols="10"></textarea></td>
+        <th bgcolor="#f2f2f2">이메일</th>
+        <td><textarea rows="1" cols="15"></textarea></td>
+    </tr>
+</table>
+
+
+
+            <hr>
+            좋아하는 교과목:<br>
+            <input type="checkbox" name="intro" value="JAVA">JAVA
+            <input type="checkbox" name="intro" value="DATABASE">DATABASE
+            <input type="checkbox" name="intro" value="HTML/CSS">HTML/CSS
+            <input type="checkbox" name="intro" value="SPRING">SPRING
+            <input type="checkbox" name="intro" value="REACT/NEXTJS">REACT/NEXTJS
+            <hr>
+            학력사항<br>
+            졸업일<input type="date" name="grad-date">
+            
+            학교이름<textarea rows="1" cols="15"></textarea>
+            전공<textarea rows="1" cols="10"></textarea>
+            졸업여부 <input type="checkbox" name="major" value="졸업여부">
+            <br>
+            소재지 <textarea rows="1" cols="20"></textarea>
+            성적 <textarea rows="1" cols="15"></textarea>
+            
+            <br>
+            <textarea rows="5" cols="100"></textarea>
+            <hr>
+            경력사항<br>
+            <textarea rows="5" cols="100"></textarea>
+            <hr>
+            자기 소개<br>
+            <textarea rows="5" cols="100"></textarea>
+            <hr>
+            취미<br>
+            <textarea rows="5" cols="100"></textarea>
+            <hr>
+            <input type="submit" value="저장">
+            <input type="reset" value="취소">
+    </form>
+</body>
+
+</html>

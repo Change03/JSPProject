@@ -1,0 +1,448 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+    <!-- 브라우저 인코딩/반응형/호환성 설정 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>오징어 잡기 애니메이션</title>
+    <style>
+        /* 기본 페이지 스타일 */
+        body {
+            margin: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* 게임 무대: 오징어/물고기 이동 영역 */
+        .stage {
+            position: relative;
+            width: 760px;
+            height: 460px;
+            border: 1px solid #666;
+            background: #eef3f8;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        /* 상태 텍스트 스타일 */
+        #status {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            color: #244;
+        }
+
+        /* 오징어 본체 */
+        .squid {
+            position: absolute;
+            width: 130px;
+            height: 92px;
+            top: 20px;
+            left: 20px;
+            --body: #ffc400;
+            background: var(--body);
+            border-radius: 54% 54% 44% 44%;
+            cursor: pointer;
+            user-select: none;
+            transition-property: top, left, background-color, transform;
+            transition-timing-function: linear;
+            box-shadow: inset -8px -10px 0 rgba(0, 0, 0, 0.15),
+                inset 6px 6px 0 rgba(255, 255, 255, 0.4);
+            z-index: 2;
+        }
+
+        /* 오징어 장식(팔/다리 모양) */
+        .squid::before,
+        .squid::after {
+            content: "";
+            position: absolute;
+            top: 52px;
+            width: 18px;
+            height: 36px;
+            background: var(--body);
+            border-radius: 50%;
+            opacity: 0.9;
+            transform-origin: top center;
+        }
+
+        .squid::before {
+            left: 12px;
+            transform: rotate(22deg);
+        }
+
+        .squid::after {
+            right: 12px;
+            transform: rotate(-22deg);
+        }
+
+        /* 오징어 촉수 */
+        .tentacle {
+            position: absolute;
+            top: 70px;
+            width: 12px;
+            height: 26px;
+            background: #ffdd55;
+            border-radius: 999px;
+            opacity: 0.9;
+        }
+
+        .tentacle.t1 {
+            left: 26px;
+            transform: rotate(15deg);
+        }
+
+        .tentacle.t2 {
+            left: 46px;
+            transform: rotate(-8deg);
+        }
+
+        .tentacle.t3 {
+            left: 66px;
+            transform: rotate(3deg);
+        }
+
+        .tentacle.t4 {
+            right: 46px;
+            transform: rotate(8deg);
+        }
+
+        .tentacle.t5 {
+            right: 26px;
+            transform: rotate(-15deg);
+        }
+
+        /* 오징어 눈 */
+        .eye {
+            position: absolute;
+            top: 18px;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 86px 0 0 #fff;
+            z-index: 2;
+        }
+
+        .eye::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 2px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #222;
+            box-shadow: 86px 0 0 #222;
+        }
+
+        /* 오징어 부리 */
+        .beak {
+            position: absolute;
+            left: 52px;
+            top: 24px;
+            width: 26px;
+            height: 16px;
+            border-radius: 0 0 18px 18px;
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        /* 클릭 성공 시 강조 스타일 */
+        .success {
+            border-color: #4caf50;
+            box-shadow:
+                inset -8px -10px 0 rgba(0, 0, 0, 0.15),
+                0 0 15px rgba(76, 175, 80, 0.45);
+        }
+
+        .fish {
+            position: absolute;
+            width: 80px;
+            height: 34px;
+            background: #7ecbff;
+            border-radius: 18px 36px 36px 18px;
+            left: -90px;
+            z-index: 1;
+            opacity: 0.92;
+        }
+
+        .fish::before {
+            content: "";
+            position: absolute;
+            left: 18px;
+            top: 11px;
+            width: 18px;
+            height: 14px;
+            background: #fff;
+            border-radius: 50% 60% 60% 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transform: skewY(-8deg);
+            box-shadow: 48px -6px 0 -1px #f6fbff;
+        }
+
+        .fish::after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: 11px;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 20px solid #5fb5f0;
+        }
+
+        .fish.fin {
+            position: absolute;
+            left: 58px;
+            top: 26px;
+            width: 0;
+            height: 0;
+            border-right: 16px solid transparent;
+            border-left: 16px solid transparent;
+            border-bottom: 12px solid rgba(0, 0, 0, 0.08);
+            transform: rotate(65deg);
+            transform-origin: left center;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* 물고기 동작(오른쪽 이동) */
+        .fish1 {
+            top: 95px;
+            animation: fishRight 6.5s linear infinite;
+            background: #7ecbff;
+        }
+
+        .fish1::before {
+            background: #f9fbff;
+            border-left-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 48px -6px 0 -1px #ecf7ff;
+        }
+
+        .fish2 {
+            top: 210px;
+            animation: fishRight 8.2s linear infinite;
+            background: #ffcc6b;
+            animation-delay: -2s;
+            opacity: 0.85;
+        }
+
+        /* 물고기 동작(왼쪽 이동) */
+        .fish3 {
+            top: 320px;
+            left: 760px;
+            animation: fishLeft 7s linear infinite;
+            background: #9ee79e;
+        }
+
+        .fish3::before {
+            left: 18px;
+            right: auto;
+            transform: scaleX(-1) skewY(-8deg);
+            box-shadow: 48px -6px 0 -1px #dff9df;
+        }
+
+        .fish3::after {
+            right: auto;
+            left: -20px;
+            border-left: 0;
+            border-right: 20px solid #71cf71;
+        }
+
+        .fish3 .fin {
+            left: 2px;
+            right: auto;
+            transform: rotate(115deg);
+        }
+
+        .fish4 {
+            top: 170px;
+            left: 760px;
+            animation: fishLeft 5.4s linear infinite;
+            background: #d7a1ff;
+            animation-delay: -1.5s;
+        }
+
+        .fish4 .fin {
+            left: 2px;
+            right: auto;
+            transform: rotate(115deg);
+        }
+
+        .fish3, .fish4 {
+            border-radius: 36px 18px 18px 36px;
+            transform: scaleX(-1);
+        }
+
+        @keyframes fishRight {
+            0% {
+                left: -90px;
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-2px);
+            }
+
+            100% {
+                left: 840px;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fishLeft {
+            0% {
+                left: 840px;
+                transform: translateY(0) scaleX(-1);
+            }
+
+            50% {
+                transform: translateY(2px) scaleX(-1);
+            }
+
+            100% {
+                left: -90px;
+                transform: translateY(0) scaleX(-1);
+            }
+        }
+
+        button {
+            margin-right: 8px;
+            padding: 6px 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="start">GO!</button>
+        <button id="stop">멈추기</button>
+        <span id="status">준비됨 — 오징어를 잡아보세요.</span>
+    </div>
+
+    <!-- 게임 무대 영역: 물고기/오징어 배치 -->
+    <div class="stage" id="stage">
+        <div class="fish fish1">
+            <span class="fin"></span>
+        </div>
+        <div class="fish fish2">
+            <span class="fin"></span>
+        </div>
+        <div class="fish fish3">
+            <span class="fin"></span>
+        </div>
+        <div class="fish fish4">
+            <span class="fin"></span>
+        </div>
+
+        <div class="squid" id="squid">
+            <span class="beak"></span>
+            <span class="eye"></span>
+            <span class="tentacle t1"></span>
+            <span class="tentacle t2"></span>
+            <span class="tentacle t3"></span>
+            <span class="tentacle t4"></span>
+            <span class="tentacle t5"></span>
+        </div>
+    </div>
+
+    <!-- 게임 로직 스크립트 -->
+    <script>
+        // DOM 요소 참조
+        const stage = document.getElementById('stage');
+        const squid = document.getElementById('squid');
+        const startBtn = document.getElementById('start');
+        const stopBtn = document.getElementById('stop');
+        const status = document.getElementById('status');
+
+        // 게임 제어에 필요한 색상/상태 변수 정의
+        const colors = ['#ffc400', '#3cf', '#f06', '#0cf', '#9f3', '#ff5722', '#8e24aa', '#03a9f4'];
+        let running = false;
+        let caught = false;
+        let speed = 550;
+        const fastestDuration = 154; // 이 값보다 작아지지 않음(너무 빨라짐 방지)
+        const speedDecreaseRate = 0.9;
+        let step = 0;
+
+        // 오징어/촉수 색상 동기화
+        function syncColors() {
+            const color = colors[step % colors.length];
+            squid.style.setProperty('--body', color);
+            squid.style.background = color;
+            squid.querySelectorAll('.tentacle').forEach(t => {
+                t.style.background = '#ffd95c';
+            });
+        }
+
+        // stop 버튼 동작: 이동을 즉시 멈춤
+        function stopNow() {
+            if (!running) return;
+            running = false;
+
+            const rect = squid.getBoundingClientRect();
+            const parentRect = stage.getBoundingClientRect();
+            const x = rect.left - parentRect.left;
+            const y = rect.top - parentRect.top;
+
+            squid.style.transitionDuration = '0ms';
+            squid.style.left = `${x}px`;
+            squid.style.top = `${y}px`;
+            status.textContent = '멈춤';
+        }
+
+        // 다음 무작위 좌표로 오징어 이동 예약
+        function moveNext() {
+            if (!running || caught) return;
+
+            const maxX = stage.clientWidth - squid.offsetWidth;
+            const maxY = stage.clientHeight - squid.offsetHeight;
+            const nextX = Math.floor(Math.random() * (maxX + 1));
+            const nextY = Math.floor(Math.random() * (maxY + 1));
+            const rotate = Math.floor(Math.random() * 41) - 20;
+
+            squid.style.transitionDuration = `${speed}ms`;
+            squid.style.left = `${nextX}px`;
+            squid.style.top = `${nextY}px`;
+            squid.style.transform = `rotate(${rotate}deg)`;
+            syncColors();
+            step++;
+        }
+
+        // 이동 완료 후 다음 이동 실행
+        squid.addEventListener('transitionend', () => {
+            if (!running || caught) return;
+            speed = Math.max(fastestDuration, Math.floor(speed * speedDecreaseRate));
+            moveNext();
+        });
+
+        // 시작 버튼: 속도 감소를 통해 난이도 상승
+        startBtn.addEventListener('click', () => {
+            if (caught) {
+                caught = false;
+                squid.classList.remove('success');
+            }
+            if (running) return;
+            running = true;
+            speed = 500;
+            status.textContent = '오징어가 빠르게 움직입니다. 클릭해서 잡아보세요!';
+            moveNext();
+        });
+
+        // 정지 버튼: 현재 위치 고정 후 멈춤
+        stopBtn.addEventListener('click', () => {
+            stopNow();
+        });
+
+        // 오징어 클릭 시 성공 처리 및 표식 표시
+        squid.addEventListener('click', () => {
+            if (!running || caught) return;
+            caught = true;
+            running = false;
+            squid.classList.add('success');
+            status.textContent = '성공!';
+        });
+    </script>
+</body>
+
+</html>
+
+

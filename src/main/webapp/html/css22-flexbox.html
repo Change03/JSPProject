@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <!-- 반응형 웹의 기본 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flexbox 실습</title>
+    <style>
+        /* box-sizing start */
+        .div1 {
+            width: 300px;
+            height: 100px;
+            border: 1px solid blue;
+        }
+
+        .div2 {
+            width: 300px;
+            height: 100px;
+            padding: 50px;
+            border: 1px solid red;
+        }
+
+        .div3 {
+            width: 300px;
+            height: 100px;
+            border: 1px solid blue;
+            box-sizing: border-box;
+        }
+
+        .div4 {
+            width: 300px;
+            height: 100px;
+            padding: 50px;
+            box-sizing: border-box;
+            border: 1px solid red;
+        }
+
+        /* box-sizing end */
+
+        /* flex-box는 위치와 정렬에 대한 content 처리 */
+        /* flex-box1: flex-direction start */
+        .container1,
+        .container2,
+        .container3,
+        .container4,
+        .container5 {
+            /* flex - box는 display가 flex인 상황에서 작업 */
+            display: flex;
+            border-bottom: 1px solid #ffcc00;
+            background-color: #6699ff;
+            padding: 1em;
+            color: white;
+        }
+        h2{
+            color: red;
+        }
+        h2 b {
+            color: black;
+        }
+        .container1{
+            flex-direction: column;
+        }
+        .container2{
+            flex-direction: column-reverse;
+        }
+        .container3{
+            flex-direction: row;
+        }
+        .container4 {
+            flex-direction: row;
+        }
+
+        .container5{
+            flex-direction: row-reverse;
+        }
+
+        /* flex-box1 : flex-direction end */
+
+        /* box CSS */
+        .box1, 
+        .box2, 
+        .box3, 
+        .box4{
+            padding: 2em;
+            margin: 0.5em;
+            background-color: white;
+            color: black;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>box-sizing</h1>
+        <h2>box-sizing 적용하기 전</h2>
+        <div class="div1">
+            이 div는 더 작습니다.(너비는 300px, 높이는 100px)
+        </div>
+        <br>
+        <div class="div2">
+            이 div는 더 큽습니다.(너비는 300px, 높이는 100px)
+        </div>
+        <hr>
+        <h2>box-sizing 적용 후 </h2>
+        <div class="div3">
+            둘다 같은 크기(너비는 300px, 높이는 100px)
+        </div>
+        <br>
+        <div class="div4">
+            둘다 같은 크기(너비는 300px, 높이는 100px)
+        </div>
+    </div>
+    <!-- 
+    flex-direction : flex 컨테이너 내에 있는 item(content)을 배치할 때,
+    사용할 추측 및 방향을 지정하는 속성  
+    -->
+    <div class="flex-direction">
+        <h2><b>container1</b></h2>
+        <div class="container1">
+            <div class="box1">box1</div>
+            <div class="box2">box2</div>
+            <div class="box3">box3</div>
+            <div class="box4">box4</div>
+        </div>
+
+        <h2><b>container2</b></h2>
+        <div class="container2">
+            <div class="box1">box1</div>
+            <div class="box2">box2</div>
+            <div class="box3">box3</div>
+            <div class="box4">box4</div>
+        </div>
+        <h2><b>container3</b></h2>
+        <div class="container3">
+            <div class="box1">box1</div>
+            <div class="box2">box2</div>
+            <div class="box3">box3</div>
+            <div class="box4">box4</div>
+        </div>
+        <h2><b>container4</b></h2>
+        <div class="container4">
+            <div class="box1">box1</div>
+            <div class="box2">box2</div>
+            <div class="box3">box3</div>
+            <div class="box4">box4</div>
+        </div>
+        <h2><b>container5</b></h2>
+        <div class="container5">
+            <div class="box1">box1</div>
+            <div class="box2">box2</div>
+            <div class="box3">box3</div>
+            <div class="box4">box4</div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>sticky 속성 완벽 테스트</title>
+    <style>
+        body {
+            /* 1. 전체 페이지를 아주 길게 만들어서 스크롤이 생기게 함 */
+            height: 3000px; 
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 2. sticky는 부모 안에서만 움직이므로 부모(bigbox)가 커야 함 */
+        .bigbox {
+            width: 100%;
+            height: 800px; /* 부모가 길어야 그 안에서 끈적하게 붙어있음 */
+            border: 5px solid purple;
+            margin-bottom: 100px;
+            background-color: #f9f9f9;
+        }
+
+        .box1, .box2, .box3 {
+            width: 100px;
+            height: 100px;
+            border: 1px solid pink;
+            margin: 10px;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .box1 { background-color: red; }
+        .box2 { background-color: orange; }
+
+        /* 3. 핵심: sticky 설정 */
+        .sticky-box {
+            position: sticky;
+            top: 50px; /* 스크롤하다 화면 위에서 50px 지점에 닿으면 고정! */
+            background-color: green;
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>👇 아래로 스크롤 해보세요!</h1>
+    
+    <div class="box1">일반 박스</div>
+    <div class="box2">일반 박스</div>
+
+    <div class="bigbox">
+        <div class="sticky-box">STICKY 1</div>
+        <p style="margin-top: 500px;">이 보라색 박스가 끝날 때까지만 따라갑니다.</p>
+    </div>
+
+    <div class="bigbox">
+        <div class="sticky-box" style="top: 10px; background-color: blue;">STICKY 2</div>
+        <p style="margin-top: 500px;">이 파란 박스는 top: 10px 설정입니다.</p>
+    </div>
+
+</body>
+
+</html>

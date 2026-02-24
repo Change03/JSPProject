@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>image 태그 연습</title>
+</head>
+
+<body>
+    <!-- 페이지 이미지를 넣을 때 사용하는 태그는 img -->
+    <!-- img 태그는 속성(Attribute) : src,alt -->
+     
+    <!-- 
+        width:  이미지 넓이를 지정
+        hight : 이미지 높이를 지정
+        src : 이미지가 있는 위치를 지정
+         alt : 이미지 로드 실패시 표시할 내용을 작성.    
+    -->
+    <img src="images/다운로드 (1).jfif" width="400px" border="1"alt="첫번째 이미지">   
+    <img src="images/다운로드.jfif" width="300px" border="1"alt="두번째 이미지">
+    <br>
+    <img src="images/다운로드 (2).jfif" width="400px" border="1"alt="세번째 이미지">
+    <img src="images/다운로드 (3).jfif" width="200px" border="1"alt="네번째 이미지">
+    <img src="images/se7vn.jfif" width="300px" border="1"alt="세번째 이미지">
+
+    <!-- 
+     a 태그(anchor) : 문서 또는 웹페이지를 연결하는 역할을 하는 태그.
+     속성
+     - href : 연결할 문서 위치 또는 웹페이지를 가리키고 있습니다
+     - target : 연결한 문서를 여는 방식(잘 사용하지 않아요)
+                self(기본), _blank 새로운 탭에서 연결
+    -->
+     <br>
+     <!-- 
+        href에서 chang.html은 상대 경로 접근한 경우(chang2.html과 같은 디렉터리에 있어서 .)
+        절대 경로를 사용하는 경우에는 "/demo/html/tag1.html" 또는
+        "http://localhost:8080/demo/html/chang.html" 로 표시
+     -->
+     <a href="chang.html">chang 페이지로 이동</a>
+     <a href="https://www.naver.com">네이버 페이지로 이동</a>
+     <a href="https://www.naver.com" target="_blank">네이버 페이지로 이동</a>
+
+</body>
+
+</html>

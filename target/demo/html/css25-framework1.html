@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CSS Framework 25 - Metal Edition</title>
+    <style>
+      :root {
+        --bg: #0f1116;
+        --chrome-1: #4a4f58;
+        --chrome-2: #8e949f;
+        --chrome-3: #cfd5de;
+        --chrome-4: #161a20;
+        --chrome-5: #f3f6fb;
+        --chrome-gloss: #7a818d;
+        --chrome-dull: #2d3139;
+        --accent: #5a6576;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: #f3f5fb;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.05) 0 2px,
+            rgba(255, 255, 255, 0.02) 2px 5px
+          ),
+          radial-gradient(circle at 20% 20%, #2f333d 0%, transparent 35%),
+          radial-gradient(circle at 80% 10%, #2a2f37 0%, transparent 30%),
+          linear-gradient(165deg, #11151d 0%, #0a0b0f 60%, #0b0e14 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+      }
+
+      .frame {
+        width: min(980px, 100%);
+        border-radius: 20px;
+        padding: 2px;
+        background:
+          linear-gradient(145deg, #5f6778, #a2a8b3 35%, #2e3542 65%, #121820 100%);
+        box-shadow:
+          0 22px 60px rgba(0, 0, 0, 0.45),
+          inset 0 1px 1px rgba(255, 255, 255, 0.18);
+      }
+
+      .panel {
+        border-radius: 18px;
+        padding: 24px;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.02) 0 1.5px,
+            transparent 1.5px 4px
+          ),
+          linear-gradient(160deg, #252a33 10%, #12161d 45%, #0d1016 100%);
+        box-shadow:
+          inset 0 2px 0 rgba(255, 255, 255, 0.22),
+          inset 0 -2px 0 rgba(0, 0, 0, 0.5),
+          inset 0 0 30px rgba(18, 22, 30, 0.6);
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.45),
+          0 -1px 0 rgba(255, 255, 255, 0.35);
+      }
+
+      .meta {
+        margin-top: 8px;
+        color: #bac5d8;
+        font-size: 0.95rem;
+      }
+
+      .grid {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .tile {
+        background:
+          linear-gradient(145deg, rgba(72, 78, 88, 0.95), rgba(34, 39, 49, 0.98)),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.06) 0 1px,
+            rgba(255, 255, 255, 0.01) 1px 3px
+          );
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 14px;
+        padding: 18px;
+        min-height: 130px;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          inset 0 -2px 0 rgba(0, 0, 0, 0.45),
+          0 8px 16px rgba(0, 0, 0, 0.33);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tile::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(125deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 40%);
+        mix-blend-mode: screen;
+        pointer-events: none;
+        transform: translateX(-120%);
+        transition: transform 0.45s ease;
+      }
+
+      .tile::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(12, 14, 20, 0.65) 100%);
+        pointer-events: none;
+      }
+
+      .tile:hover::before {
+        transform: translateX(120%);
+      }
+
+      .tile h3 {
+        margin: 0 0 10px;
+        font-size: 1.1rem;
+      }
+
+      .tile p {
+        margin: 0;
+        color: #dde4f0;
+        line-height: 1.45;
+      }
+
+      .button-row {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 999px;
+        color: #f4f6fb;
+        background:
+          linear-gradient(180deg, #4f5664, #282f3a);
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.28),
+          inset 0 -2px 0 rgba(0, 0, 0, 0.45),
+          0 5px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      button:hover {
+        background:
+          linear-gradient(180deg, #5f6778, #394252);
+      }
+
+      .badge {
+        margin-left: auto;
+        border-radius: 999px;
+        padding: 4px 12px;
+        font-size: 0.75rem;
+        color: #f7f9ff;
+        background:
+          linear-gradient(90deg, #27303e, #5a667b 55%, #202839);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .palette {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .swatch {
+        border-radius: 12px;
+        padding: 10px 12px;
+        color: #fff;
+        font-size: 0.78rem;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: linear-gradient(180deg, #4b5563, #262b33);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .swatch .name {
+        display: block;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        margin-bottom: 3px;
+      }
+
+      .swatch .hex {
+        opacity: 0.92;
+      }
+
+      .card-row {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .card {
+        border-radius: 14px;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background:
+          radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 45%),
+          linear-gradient(155deg, #2b313d, #151a22);
+      }
+
+      .card strong {
+        color: var(--chrome-3);
+      }
+
+      .header {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      @media (max-width: 800px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .card-row {
+          grid-template-columns: 1fr;
+        }
+
+        .palette {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 540px) {
+        body {
+          padding: 14px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .palette {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="frame">
+      <section class="panel">
+        <div class="header">
+          <h1 class="title">CSS25 Frame Metal</h1>
+          <span class="badge">Steel UI</span>
+        </div>
+        <p class="meta">메탈릭한 표면 질감, 하이라이트와 미세 음영을 강조한 테마</p>
+
+        <div class="grid" aria-label="기능 카드">
+          <article class="tile">
+            <h3>구조</h3>
+            <p>프레임 계층, 패널 중첩, 경계 라인을 조합해 금속 판재의 이음새를 표현했습니다.</p>
+          </article>
+          <article class="tile">
+            <h3>광택</h3>
+            <p>그라데이션과 얇은 음영을 반사광처럼 배치해 조명 아래에서 강한 대비를 만듭니다.</p>
+          </article>
+          <article class="tile">
+            <h3>질감</h3>
+            <p>미세한 하이라이트 오버레이와 깊이 있는 음영으로 단단한 메탈 표면 느낌을 강화했습니다.</p>
+          </article>
+        </div>
+
+        <div class="card-row">
+          <div class="card">
+            <strong>톤 컬러</strong>
+            <p>짙은 차콜 베이스 + 회색 계열 스테인리스 톤의 조합으로 차갑고 단단한 분위기를 유지했습니다.</p>
+          </div>
+          <div class="card">
+            <strong>입체감</strong>
+            <p>내부/외곽 그림자와 inset 효과를 통해 경계가 또렷한 3D 금속 프레임을 구현했습니다.</p>
+          </div>
+        </div>
+
+        <div class="palette" aria-label="브러시드 스틸 색상 샘플">
+          <div class="swatch" style="background: linear-gradient(180deg, #2f3540, #1b2028);">
+            <span class="name">브러시 다크</span>
+            <span class="hex">#2F3540 / #1B2028</span>
+          </div>
+          <div class="swatch" style="background: linear-gradient(180deg, #6b7280, #4a5160);">
+            <span class="name">차가운 스틸</span>
+            <span class="hex">#6B7280 / #4A5160</span>
+          </div>
+          <div class="swatch" style="background: linear-gradient(180deg, #9ca3b0, #7a818d);">
+            <span class="name">유광 스틸</span>
+            <span class="hex">#9CA3B0 / #7A818D</span>
+          </div>
+          <div class="swatch" style="background: linear-gradient(180deg, #d7dce5, #b4bcc8); color:#1f2430;">
+            <span class="name">라이트 브러시</span>
+            <span class="hex">#D7DCE5 / #B4BCC8</span>
+          </div>
+          <div class="swatch" style="background: linear-gradient(180deg, #373f4a, #2f3945);">
+            <span class="name">브러시 블루</span>
+            <span class="hex">#8A93A0 / #4C5664</span>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="button">Metal On</button>
+          <button type="button">Gloss Boost</button>
+          <button type="button">Deep Contrast</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
