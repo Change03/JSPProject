@@ -51,7 +51,7 @@
             response.addCookie(idCheckCookie);
 
             // user_id도 길게 유지하고 싶으면 여기서 maxAge를 더 길게 바꿔도 됨
-            userId.setMaxAge(60 * 60 * 24 * 7); // 7일로 연장
+            userId.setMaxAge(180); // 7일로 연장
             response.addCookie(userId);
 
         } else {

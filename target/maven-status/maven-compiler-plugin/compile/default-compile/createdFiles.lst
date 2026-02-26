@@ -1,3 +1,9 @@
-com\example\jsptest\GugudanServlet.class
 DTO\UserInfo.class
-com\example\jsptest\TestServlet.class
+DTO\Product.class
+controller\ProductServlet.class
+DTO\Member.class
+controller\GugudanServlet.class
+controller\TestServlet.class
+controller\CheckLogin.class
+controller\BMIServlet.class
+controller\MemberServlet.class

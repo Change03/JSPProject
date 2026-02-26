@@ -13,6 +13,9 @@
             } else if ("idCheck".equals(c.getName()) && "y".equals(c.getValue())) {
                 checked = true;
             }
+            // if(c.getName().equals("user_id")){
+            //     response.sendRedirect("cookie_welcome.jsp")
+            // }
         }
     }
 
