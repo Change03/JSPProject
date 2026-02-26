@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+<%@ page import="jakarta.servlet.http.Cookie"%>
+
+
 <%
     /*
     1. Date 클래스를 이용해서 페이지에 접근한 시간 정보를 YYYY년 MM월 DD일 형태로 생성
@@ -31,7 +33,7 @@
    response.addCookie(show);
     
     // 응답에 쿠키를 추가
-    response.addCookie(show);
+    //response.addCookie(show);
 %>
 <!DOCTYPE html>
 <html>
