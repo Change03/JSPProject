@@ -30,7 +30,6 @@
     <title>request 객체</title>
 </head>
 <body>
-    <h1 style="color:red">DEPLOY CHECK 2026-02-24 15:50</h1>
     url 주소 : <%= url %><br>
     uri 주소 : <%= uri %><br>
     컨텍스트경로 : <%= path %><br>

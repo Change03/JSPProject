@@ -1,6 +1,14 @@
 <%-- 서블릿 주석 : JSP에서 page 지시자는 현재 보여지는 페이지에 대한 설정 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.List" %>
+<%--
+    jsp 태크 종류
+    1.
+    2. 
+    3. 
+    4. 표현식 <%= %>
+    5. 주석 :<%-- --%>
+--%>
 <!DOCTYPE html> 
 <html> 
     <head>
